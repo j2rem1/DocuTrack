@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap');
+
 /* ===== DocuTrack Reset & Theme ===== */
 :root{
   --bg: #0b0f14;
@@ -17,24 +19,55 @@
 html,body{ height:100%; }
 body{
   margin:0;
-  font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+  font: 14px/1.45 'Syne', system-ui, -apple-system, sans-serif;
   color:var(--text);
   background: radial-gradient(1000px 600px at 10% -10%, #132034 0%, transparent 60%) ,
               radial-gradient(700px 500px at 95% 10%, #1d2a3e 0%, transparent 60%),
               var(--bg);
 }
 
+/* ===== Shared background elements ===== */
+.page-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 20%, rgba(94,160,255,.06) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 65% at 85% 75%, rgba(85,198,169,.04) 0%, transparent 65%);
+}
+.page-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(94,160,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94,160,255,.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 100%);
+}
+.scan-line {
+  position: fixed; left: 0; right: 0; height: 1px; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(94,160,255,.18) 35%, rgba(85,198,169,.1) 65%, transparent 100%);
+  animation: scan 10s linear infinite;
+}
+@keyframes scan {
+  0%   { top: -1px; opacity: 0; }
+  4%   { opacity: 1; }
+  96%  { opacity: 1; }
+  100% { top: 100vh; opacity: 0; }
+}
+
 /* ===== Layout ===== */
 header{
   position: sticky; top:0; z-index:5;
   display:flex; align-items:center; justify-content:space-between; gap:16px;
-  padding:16px 22px;
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
-  border-bottom:1px solid #1e2b3b;
-  backdrop-filter: blur(8px);
+  padding:14px 22px;
+  background: color-mix(in srgb, var(--panel) 90%, transparent);
+  border-bottom:1px solid rgba(94,160,255,.1);
+  backdrop-filter: blur(10px);
 }
-header h1{ font-size:18px; margin:0; letter-spacing:.2px; }
-header .who{ color:var(--muted); font-size:13px; }
+header h1{
+  font-family: 'IBM Plex Mono', monospace;
+  font-size:16px; margin:0; letter-spacing:.06em; font-weight:600;
+}
+header .who{ color:var(--muted); font-size:12px; font-family:'IBM Plex Mono',monospace; }
 .container{ max-width:1100px; margin:24px auto; padding:0 16px; }
 
 .grid{
@@ -70,14 +103,32 @@ header .who{ color:var(--muted); font-size:13px; }
 
 /* ===== Cards ===== */
 .card{
-  background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 90%, #000 10%), var(--panel));
-  border:1px solid #1e2b3b;
+  background: linear-gradient(160deg, rgba(15,23,32,.97), rgba(10,14,19,.99));
+  border:1px solid rgba(94,160,255,.12);
   border-radius:16px;
-  padding:16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.02);
+  padding:20px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.025), 0 16px 48px rgba(0,0,0,.4);
+  position: relative;
+  overflow: hidden;
 }
-.card h2{ margin:4px 0 10px; font-size:16px; }
-.card .sub{ color:var(--muted); font-size:12px; margin-top:-4px; }
+.card::before{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(94,160,255,.35) 40%, rgba(85,198,169,.2) 65%, transparent 95%);
+}
+.card h2{ margin:4px 0 12px; font-size:16px; font-weight:700; letter-spacing:-.01em; }
+.card h3{ margin:4px 0 10px; font-size:14px; font-weight:600; }
+.card .sub{ color:var(--muted); font-size:12px; margin-top:-6px; margin-bottom:8px; }
+
+/* ===== Form fields ===== */
+.field{ margin-bottom:14px; }
+.field label, .form-label{
+  display:block;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:9.5px; font-weight:500;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:6px;
+}
 
 /* ===== Forms ===== */
 .row{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }

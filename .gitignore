@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Runtime-generated data
+server/storage/
+server/uploads/issuances/
+server/docutrack.db
+
+# Keys (keep prof_keys.json and keys/ only if intentional for demo)
+# server/prof_keys.json
+# server/keys/

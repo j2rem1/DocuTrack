@@ -68,7 +68,7 @@ async function loadStudents(){
 
 function logout(){
   localStorage.clear();
-  location.href = "/";
+  location.href = "/login";
 }
 
 
